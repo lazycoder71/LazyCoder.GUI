@@ -5,31 +5,35 @@ using Sirenix.OdinInspector;
 
 namespace LazyCoder.Core
 {
-    public class GuiGraphicScale : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerUpHandler, IPointerExitHandler, IPointerClickHandler
+    public class GuiGraphicScale : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerUpHandler,
+        IPointerExitHandler, IPointerClickHandler
     {
-        [Title("Reference")]
-        [SerializeField] private Transform _target;
+        [System.Serializable]
+        public class Config
+        {
+            [SerializeField] private Transform _target;
+
+            [SerializeField] private Vector3 _endValue = new Vector3(0.9f, 0.9f, 1.0f);
+
+            [Min(0.1f)]
+            [SerializeField] private float _duration = 0.1f;
+
+            [SerializeField] private Ease _ease = Ease.Linear;
+
+            public Transform Target => _target;
+            public Vector3 EndValue => _endValue;
+            public float Duration => _duration;
+            public Ease Ease => _ease;
+        }
 
         [Title("Config")]
-        [SerializeField] private Vector3 _scaleStart = new Vector3(1.0f, 1.0f, 1.0f);
-        [SerializeField] private Vector3 _scaleEnd = new Vector3(0.9f, 0.9f, 1.0f);
-
-        [Min(0.1f)]
-        [SerializeField] private float _scaleDuration = 0.1f;
-
-        [SerializeField] private Ease _scaleEase = Ease.Linear;
+        [SerializeField] private Config _config;
 
         private bool _isDown = false;
 
         private Tween _tween;
 
         #region Monobehaviour
-
-        private void Awake()
-        {
-            if (_target == null)
-                _target = transform;
-        }
 
         private void OnDestroy()
         {
@@ -52,11 +56,18 @@ namespace LazyCoder.Core
             if (_tween != null)
                 return;
 
-            _tween = _target.DOScale(_scaleEnd, _scaleDuration)
-                            .ChangeStartValue(_scaleStart)
-                            .SetEase(_scaleEase)
-                            .SetAutoKill(false)
-                            .SetUpdate(true);
+            Transform target = _config.Target == null ? transform : _config.Target;
+
+            Vector3 scaleStart = target.localScale;
+
+            Vector3 scaleEnd = new Vector3(scaleStart.x * _config.EndValue.x, scaleStart.y * _config.EndValue.y,
+                scaleStart.z * _config.EndValue.z);
+
+            _tween = target.DOScale(scaleEnd, _config.Duration)
+                .ChangeStartValue(scaleStart)
+                .SetEase(_config.Ease)
+                .SetAutoKill(false)
+                .SetUpdate(true);
 
             _tween.Restart();
             _tween.Pause();
@@ -74,6 +85,15 @@ namespace LazyCoder.Core
             InitTween();
 
             _tween.PlayBackwards();
+        }
+
+        #endregion
+
+        #region Function -> Public
+
+        public void Construct(Config config)
+        {
+            _config = config;
         }
 
         #endregion
