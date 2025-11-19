@@ -15,7 +15,6 @@ namespace LazyCoder.Core
 
             [SerializeField] private Vector3 _endValue = new Vector3(0.9f, 0.9f, 1.0f);
 
-            [Min(0.1f)]
             [SerializeField] private float _duration = 0.1f;
 
             [SerializeField] private Ease _ease = Ease.Linear;
