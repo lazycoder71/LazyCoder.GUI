@@ -141,8 +141,7 @@ namespace LazyCoder.Gui
         /// </summary>
         private static bool IsAnchorValid(Vector2 anchor)
         {
-            return anchor.x >= 0f && anchor.y >= 0f
-                                  && !float.IsNaN(anchor.x) && !float.IsNaN(anchor.y);
+            return anchor.x >= 0f && anchor.y >= 0f && !float.IsNaN(anchor.x) && !float.IsNaN(anchor.y);
         }
     }
 }
