@@ -93,7 +93,7 @@ namespace LazyCoder.Gui
                 Object.DestroyImmediate(obj);
             }
 #else
-			Object.Destroy(@object);
+			Object.Destroy(obj);
 #endif
         }
     }
