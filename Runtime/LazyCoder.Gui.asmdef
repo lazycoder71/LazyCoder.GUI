@@ -5,7 +5,12 @@
         "LazyCoder.Core",
         "LazyCoder.Audio",
         "LazyCoder.SO",
-        "Unity.TextMeshPro"
+        "LazyCoder.AnimationSequencer",
+        "Unity.TextMeshPro",
+        "Unity.Addressables",
+        "Unity.InputSystem",
+        "Unity.ResourceManager",
+        "UniTask"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
