@@ -8,7 +8,7 @@ namespace LazyCoder.Gui
     public class GuiNavPageBackground : MonoBehaviour, IGuiNavPage
     {
         [Title("Config")]
-        [SerializeField] private bool _closeOnClick = true;
+        [SerializeField] private bool _closeOnClick = false;
 
         private GuiNavPage _page;
 

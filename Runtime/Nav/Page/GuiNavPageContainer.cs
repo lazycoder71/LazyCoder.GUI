@@ -30,11 +30,25 @@ namespace LazyCoder.Gui
             // If the instantiated object does not have a GuiNavPage component, release it and log an error
             if (page == null)
             {
-                Addressables.ReleaseInstance(handle.Result);
-
                 LDebug.LogError<GuiNavPageContainer>(
-                    $"The instantiated page from {pageAsset} does not have a GuiNavPage component!");
+                    $"The instantiated page from [{pageAsset}] does not have a {typeof(GuiNavPage)} component!");
+
+                Addressables.ReleaseInstance(handle.Result);
                 return null;
+            }
+
+            PushPage(page, context);
+
+            return page;
+        }
+
+        private void PushPage(GuiNavPage page, GuiNavContext context)
+        {
+            // If the instantiated object does not have a GuiNavPage component, log an error
+            if (page == null)
+            {
+                LDebug.LogError<GuiNavPageContainer>("The provided page is null!");
+                return;
             }
 
             // Block the current top page, if any
@@ -49,8 +63,6 @@ namespace LazyCoder.Gui
 
             // Open the new page
             page.OpenAsync().Forget();
-
-            return page;
         }
 
         public void ClosePage(GuiNavPage page)
@@ -64,12 +76,26 @@ namespace LazyCoder.Gui
 
             _pages.Remove(page);
 
+            // Release the page instance
             Addressables.ReleaseInstance(page.GameObjectCached);
+
+            if (page != null)
+                Destroy(page.GameObjectCached);
         }
 
         #endregion
 
         #region MonoBehaviour Callbacks
+
+        protected override void Start()
+        {
+            base.Start();
+
+            GuiNavPage childPage = GetComponentInChildren<GuiNavPage>();
+
+            if (childPage != null)
+                PushPage(childPage, null);
+        }
 
         protected override void OnEnable()
         {
