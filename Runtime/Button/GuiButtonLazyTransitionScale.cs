@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace LazyCoder.Gui
 {
+    [System.Serializable]
     public class GuiButtonLazyTransitionScale : GuiButtonLazyTransition
     {
         [SerializeField] private GuiGraphicScale.Config _config;
