@@ -37,8 +37,7 @@ namespace LazyCoder.Gui
                 return;
 
             // Spawn background object
-            GameObject objBg = new GameObject("Background",
-                typeof(CanvasGroup));
+            GameObject objBg = new GameObject("Background");
 
             // Setup rect transform component
             RectTransform rect = objBg.AddComponent<RectTransform>();
