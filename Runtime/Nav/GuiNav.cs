@@ -1,3 +1,4 @@
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using LazyCoder.Core;
 using UnityEngine.AddressableAssets;
@@ -7,7 +8,8 @@ namespace LazyCoder.Gui
     public static class GuiNav
     {
         public static async UniTask<GuiNavPage> PushPageAsync(AssetReference pageAsset,
-            GuiNavPageContainer pageContainer, GuiNavContext context = null)
+            GuiNavPageContainer pageContainer, GuiNavContext context = null,
+            CancellationToken cancellationToken = default)
         {
             // If no page container is available, log an error and return null
             if (pageContainer == null)
@@ -19,16 +21,16 @@ namespace LazyCoder.Gui
             }
 
             // Push the page to the page container
-            return await pageContainer.PushPageAsync(pageAsset, context);
+            return await pageContainer.PushPageAsync(pageAsset, context, cancellationToken);
         }
 
         public static async UniTask<GuiNavPage> PushPageAsync(AssetReference pageAsset, int groupIndex = 0,
-            GuiNavContext context = null)
+            GuiNavContext context = null, CancellationToken cancellationToken = default)
         {
             // Get the page container for the specified group index
             GuiNavPageContainer pageContainer = GuiNavPageContainerManager.GetContainer(groupIndex);
 
-            return await PushPageAsync(pageAsset, pageContainer, context);
+            return await PushPageAsync(pageAsset, pageContainer, context, cancellationToken);
         }
     }
 }

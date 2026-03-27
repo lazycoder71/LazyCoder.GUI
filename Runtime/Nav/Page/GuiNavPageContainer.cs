@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using LazyCoder.Core;
 using Sirenix.OdinInspector;
@@ -16,13 +17,14 @@ namespace LazyCoder.Gui
 
         #region Functions -> Public
 
-        public async UniTask<GuiNavPage> PushPageAsync(AssetReference pageAsset, GuiNavContext context)
+        public async UniTask<GuiNavPage> PushPageAsync(AssetReference pageAsset, GuiNavContext context,
+            CancellationToken cancellationToken)
         {
             // Instantiate the page from the addressable asset
             var handle = pageAsset.InstantiateAsync(TransformCached, false);
 
             // Await the handle with cancellation on destroy
-            await handle.ToUniTask(cancellationToken: this.GetCancellationTokenOnDestroy());
+            await handle.ToUniTask(cancellationToken: cancellationToken);
 
             // Get the GuiNavPage component from the instantiated object
             GuiNavPage page = handle.Result.GetComponent<GuiNavPage>();
