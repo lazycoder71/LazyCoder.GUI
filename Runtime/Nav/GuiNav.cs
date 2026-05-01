@@ -14,7 +14,7 @@ namespace LazyCoder.Gui
             // If no page container is available, log an error and return null
             if (pageContainer == null)
             {
-                LDebug.LogError(typeof(GuiNav),
+                LzDebug.LogError(typeof(GuiNav),
                     $"No {nameof(GuiNavPageContainer)} available to push page {pageAsset}");
 
                 return null;

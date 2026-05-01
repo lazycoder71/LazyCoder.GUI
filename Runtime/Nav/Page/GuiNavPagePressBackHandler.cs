@@ -28,7 +28,7 @@ namespace LazyCoder.Gui
             }
             else
             {
-                LDebug.LogWarning<GuiNavPagePressBackHandler>(
+                LzDebug.LogWarning<GuiNavPagePressBackHandler>(
                     "InputActionBack is null, unable to detect when back button is pressed.");
             }
         }

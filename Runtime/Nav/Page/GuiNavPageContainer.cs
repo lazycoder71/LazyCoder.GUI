@@ -32,7 +32,7 @@ namespace LazyCoder.Gui
             // If the instantiated object does not have a GuiNavPage component, release it and log an error
             if (page == null)
             {
-                LDebug.LogError<GuiNavPageContainer>(
+                LzDebug.LogError<GuiNavPageContainer>(
                     $"The instantiated page from [{pageAsset}] does not have a {typeof(GuiNavPage)} component!");
 
                 Addressables.ReleaseInstance(handle.Result);
@@ -49,7 +49,7 @@ namespace LazyCoder.Gui
             // If the instantiated object does not have a GuiNavPage component, log an error
             if (page == null)
             {
-                LDebug.LogError<GuiNavPageContainer>("The provided page is null!");
+                LzDebug.LogError<GuiNavPageContainer>("The provided page is null!");
                 return;
             }
 

@@ -120,7 +120,7 @@ namespace LazyCoder.Gui
 
             if (_logging)
             {
-                LDebug.Log<GuiSafeArea>(
+                LzDebug.Log<GuiSafeArea>(
                     $"New safe area applied to {name}: x={r.x}, y={r.y}, w={r.width}, h={r.height} on full extents w={Screen.width}, h={Screen.height}");
             }
         }
